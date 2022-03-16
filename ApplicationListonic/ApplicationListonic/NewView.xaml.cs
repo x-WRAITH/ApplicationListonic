@@ -6,56 +6,44 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using ApplicationListonic.Models;
 using System.Collections.ObjectModel;
-
+using ApplicationListonic.Models;
 
 namespace ApplicationListonic
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : ContentPage
+    public partial class NewView : ContentPage
     {
-        public static ObservableCollection<ListObj> glownaLista { get; set; } = new ObservableCollection<ListObj>();
-        public MainPage()
+        public NewView(ListObj pobocznaLista)
         {
             InitializeComponent();
-            listMainPage.ItemsSource = glownaLista;
-            
-            glownaLista.Add(new ListObj { ProductsList = new ObservableCollection<Product> { new Product { ProductName="asd" } }, listName = "cos" });
 
+            listMainPage.ItemsSource = pobocznaLista.ProductsList;
         }
-
-        private void listMainPage_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-           var lista = e.Item as ListObj;
-           Navigation.PushAsync(new NewView(lista));
-        }
-
         private void Del_NewMainList(object sender, EventArgs e)
         {
             var senderBindingContext = ((Button)sender).BindingContext;
-            var dataItem = (ListObj)senderBindingContext;
+            var dataItem = (Product)senderBindingContext;
 
 
-
-            glownaLista.Remove(dataItem);
         }
 
         async void Mod_NewMainList(object sender, EventArgs e)
         {
             string result = await DisplayPromptAsync("Modification of the list", "Enter a name list", maxLength: 20, keyboard: Keyboard.Text);
             var senderBindingContext = ((Button)sender).BindingContext;
-            var dataItem = (ListObj)senderBindingContext;
+            var dataItem = (Product)senderBindingContext;
 
 
-            int id = glownaLista.IndexOf(dataItem);
-            glownaLista[id] = new ListObj() { listName=result };
+            //int id = .IndexOf(dataItem);
+            //[id] = new Product() { ProductName = result };
         }
 
         async void Add_NewMainList(object sender, EventArgs e)
         {
             string result = await DisplayPromptAsync("Add new list", "Enter a name list", maxLength: 20, keyboard: Keyboard.Text);
-            glownaLista.Add(new ListObj { listName = result });
+            //.Add(new Product { ProductName = result });
+            
         }
     }
 }
