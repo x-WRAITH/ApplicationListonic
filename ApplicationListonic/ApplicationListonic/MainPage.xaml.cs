@@ -8,13 +8,19 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ApplicationListonic.Models;
 using System.Collections.ObjectModel;
-
+using System.Windows.Input;
 
 namespace ApplicationListonic
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
-    {
+    { 
+        private void RefreshData()
+        {
+            listMainPage.ItemsSource = null;
+            listMainPage.ItemsSource = glownaLista;
+        }
+
         public static ObservableCollection<ListObj> glownaLista { get; set; } = new ObservableCollection<ListObj>();
         public MainPage()
         {
@@ -46,16 +52,26 @@ namespace ApplicationListonic
             string result = await DisplayPromptAsync("Modification of the list", "Enter a name list", maxLength: 20, keyboard: Keyboard.Text);
             var senderBindingContext = ((Button)sender).BindingContext;
             var dataItem = (ListObj)senderBindingContext;
-
-
             int id = glownaLista.IndexOf(dataItem);
-            glownaLista[id] = new ListObj() { listName=result };
+            if (result != string.Empty) {
+                glownaLista[id].listName = result;
+                RefreshData();
+            } else {
+                await DisplayAlert("ERROR", "The field cannot be empty", "Ok");
+            }
+            
         }
 
         async void Add_NewMainList(object sender, EventArgs e)
         {
             string result = await DisplayPromptAsync("Add new list", "Enter a name list", maxLength: 20, keyboard: Keyboard.Text);
-            glownaLista.Add(new ListObj { listName = result });
+            Console.WriteLine(result);
+            if(result != string.Empty) {
+                glownaLista.Add(new ListObj { listName = result });
+            } else {
+                await DisplayAlert("ERROR", "The field cannot be empty", "Ok");
+            }
         }
+
     }
 }

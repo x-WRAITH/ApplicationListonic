@@ -33,10 +33,9 @@ namespace ApplicationListonic
             string result = await DisplayPromptAsync("Modification of the list", "Enter a name list", maxLength: 20, keyboard: Keyboard.Text);
             var senderBindingContext = ((Button)sender).BindingContext;
             var dataItem = (Product)senderBindingContext;
+            
 
-
-            //int id = .IndexOf(dataItem);
-            //[id] = new Product() { ProductName = result };
+            dataItem.ProductName =  result ;
         }
 
         async void Add_NewMainList(object sender, EventArgs e)

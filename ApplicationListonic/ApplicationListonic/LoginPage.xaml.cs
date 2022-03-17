@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ApplicationListonic.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -23,7 +24,7 @@ namespace ApplicationListonic.Views
             Btn_SignUp.IsVisible = false;
         }
 
-        async void SignInFunction(object sender, EventArgs e)
+        private void SignInFunction(object sender, EventArgs e)
         {
             User user = new User(Entry_Username.Text, Entry_Password.Text);
             if (user.CheckInformation())
@@ -33,7 +34,7 @@ namespace ApplicationListonic.Views
                 {
                     if (i == 5)
                     {
-                        await Navigation.PushAsync(new MainPage());
+                        Application.Current.MainPage = new ShellPage();
                     }
                 }
             }
