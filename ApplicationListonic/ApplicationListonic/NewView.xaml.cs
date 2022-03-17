@@ -14,6 +14,12 @@ namespace ApplicationListonic
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewView : ContentPage
     {
+        private void RefreshData()
+        {
+            listMainPage.ItemsSource = null;
+            //listMainPage.ItemsSource = ;
+        }
+
         public NewView(ListObj pobocznaLista)
         {
             InitializeComponent();
@@ -32,17 +38,34 @@ namespace ApplicationListonic
         {
             string result = await DisplayPromptAsync("Modification of the list", "Enter a name list", maxLength: 20, keyboard: Keyboard.Text);
             var senderBindingContext = ((Button)sender).BindingContext;
-            var dataItem = (Product)senderBindingContext;
-            
+            var dataItem = (ListObj)senderBindingContext;
+            //int id = glownaLista.IndexOf(dataItem);
+            if (result != string.Empty)
+            {
+                
+                //glownaLista[id].listName = result;
+                RefreshData();
+            }
+            else
+            {
+                await DisplayAlert("ERROR", "The field cannot be empty", "Ok");
+            }
 
-            dataItem.ProductName =  result ;
         }
 
         async void Add_NewMainList(object sender, EventArgs e)
         {
             string result = await DisplayPromptAsync("Add new list", "Enter a name list", maxLength: 20, keyboard: Keyboard.Text);
-            //.Add(new Product { ProductName = result });
-            
+            Console.WriteLine(result);
+            if (result != string.Empty)
+            {
+                
+                //glownaLista.Add(new ListObj { listName = result });
+            }
+            else
+            {
+                await DisplayAlert("ERROR", "The field cannot be empty", "Ok");
+            }
         }
     }
 }
