@@ -1,0 +1,25 @@
+﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ApplicationListonic"
+       Title="HOME"
+       x:Class="ApplicationListonic.ShellPage">
+
+    <TabBar>
+        <Tab Title="Lists" Icon="home.png">
+            <ShellContent>
+                <local:MainPage Title="Lists"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Recipes" Icon="document.png">
+            <ShellContent>
+                <local:RecipesPage Title="Recipes"/>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Newsletters" Icon="commentalt.png">
+            <ShellContent>
+                <local:NewslettersPage Title="Newsletters"/>
+            </ShellContent>
+        </Tab>
+    </TabBar>
+    
+</Shell>
